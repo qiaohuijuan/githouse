@@ -28,30 +28,36 @@
                 <li>更多<i class="iconfont icon-angle-down"></i></li>
             </ul>
         </nav>
-        <section>
-            <dl>
-                <dt><img src="imgs/1.png" alt=""></dt>
-                <dd>
-                    <h1>德盛苑</h1>
-                    <b>¥2200</b><small>可月付</small>
-                    <h6>7户合租|朝东次卧|15M</h6>
-                    <span>浦东-北蔡</span>
-                    <p>
-                        <cite>新上架</cite>
-                        <cite>独卫</cite>
-                        <cite>独立厨房</cite>
-                        <span>今天发布</span>
-                    </p>
-                </dd>
-            </dl>
+        <section class="main">
+
         </section>
     </div>
     <script src="js/jquery-3.1.1.min.js"></script>
     <script>
         $.ajax({
-            url: 'data/data.json',
+            url: '/newdata',
             success: function(data) {
-                console.log(data);
+                var data = JSON.parse(data);
+                var html = '';
+                data.forEach(function(element, index) {
+                    console.log(element.url);
+                    html += `<dl>
+                <dt><img src="${element.url}" alt=""></dt>
+                <dd>
+                    <h1>${element.tit}</h1>
+                    <b>${element.money[0]}</b><small>${element.money[1]}</small>
+                    <h6>${element.der}</h6>
+                    <span>${element.add}</span>
+                    <p>
+                        <cite>${element.type[0]}</cite>
+                        <cite>${element.type[1]}</cite>
+                        <cite>${element.type[2]}</cite>
+                        <span>${element.type[3]}</span>
+                    </p>
+                </dd>
+            </dl>`;
+                })
+                $('.main').html(html);
             }
         })
     </script>
