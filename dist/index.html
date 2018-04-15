@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Document</title><link rel="stylesheet" href="./css/swiper-3.4.2.min.css"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="fonts/iconfont.css"></head><body><div class="wrap"><header><i class="iconfont icon-shouye"></i> <a href="javascript:;">上海</a> <i class="iconfont icon-triangle-down"></i><p><i class="iconfont icon-fangdajing"></i><input type="text" placeholder="输入区域，小区搜索房源"></p><i class="iconfont icon-wode"></i></header><nav><ul class="nav"><li>位置<i class="iconfont icon-angle-down"></i></li><li>租金<i class="iconfont icon-angle-down"></i></li><li>合租<i class="iconfont icon-angle-down"></i></li><li>更多<i class="iconfont icon-angle-down"></i></li></ul></nav><section class="main"></section></div><script src="js/jquery-3.1.1.min.js"></script><script>$.ajax({
+            url: '/newdata',
+            success: function(data) {
+                var data = JSON.parse(data);
+                var html = '';
+                data.forEach(function(element, index) {
+                    console.log(element.url);
+                    html += `<dl>
+                <dt><img src="${element.url}" alt=""></dt>
+                <dd>
+                    <h1>${element.tit}</h1>
+                    <b>${element.money[0]}</b><small>${element.money[1]}</small>
+                    <h6>${element.der}</h6>
+                    <span>${element.add}</span>
+                    <p>
+                        <cite>${element.type[0]}</cite>
+                        <cite>${element.type[1]}</cite>
+                        <cite>${element.type[2]}</cite>
+                        <span>${element.type[3]}</span>
+                    </p>
+                </dd>
+            </dl>`;
+                })
+                $('.main').html(html);
+            }
+        })</script></body></html>
