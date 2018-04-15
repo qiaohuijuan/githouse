@@ -10,6 +10,7 @@ var sequence = require('gulp-sequence');
 var autoprefixer = require('gulp-autoprefixer');
 var mincss = require('gulp-clean-css');
 var clean = require('gulp-clean');
+var rev = require('gulp-rev');
 
 gulp.task('clean', function() {
     return gulp.src('dist')
@@ -24,6 +25,11 @@ gulp.task('mincss', function() {
         }))
         .pipe(mincss())
         .pipe(gulp.dest('dist/css'))
+})
+
+gulp.task('copyimg', function() {
+    return gulp.src('src/imgs/*.png', { base: 'src' })
+        .pipe(gulp.dest('dist'))
 })
 
 gulp.task('minjs', function() {
@@ -44,7 +50,7 @@ gulp.task('minhtml', function() {
 })
 
 gulp.task('webserver', function() {
-    gulp.src('src')
+    gulp.src('dist')
         .pipe(webserver({
             open: true,
             host: 'localhost',
@@ -86,5 +92,5 @@ gulp.task('webserver', function() {
 })
 
 gulp.task('default', function(cb) {
-    sequence('clean', ['mincss', 'minjs', 'minhtml'], 'webserver', cb)
+    sequence('clean', ['mincss', 'minjs', 'minhtml', 'copyimg'], 'webserver', cb)
 })
